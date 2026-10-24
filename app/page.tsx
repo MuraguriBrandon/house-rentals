@@ -82,6 +82,12 @@ export default function HomePage() {
 
           <div className="flex items-center gap-3">
             <Link
+              href="/landlord"
+              className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 sm:inline-flex"
+            >
+              Landlord page
+            </Link>
+            <Link
               href="/portal"
               className="hidden rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-slate-900 hover:text-slate-900 sm:inline-flex"
             >

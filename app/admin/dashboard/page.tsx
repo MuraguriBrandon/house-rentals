@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -134,6 +135,14 @@ const generateInitialProperties = () => {
 }
 
 export default function AdminDashboard() {
+  const router = useRouter()
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.localStorage.getItem("renthub-admin-auth") !== "true") {
+      router.replace("/admin")
+    }
+  }, [router])
+
   const [properties, setProperties] = useState<any[]>(() => {
     if (typeof window !== "undefined") {
       const saved = window.localStorage.getItem(BILLING_STORAGE_KEY)
@@ -281,6 +290,9 @@ export default function AdminDashboard() {
   }
 
   const handleLogout = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem("renthub-admin-auth")
+    }
     window.location.href = "/admin"
   }
 

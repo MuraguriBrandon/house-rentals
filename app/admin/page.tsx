@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -11,25 +12,39 @@ import { Building, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 
 export default function AdminLogin() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
 
-    // Simulate login process
-    setTimeout(() => {
-      if (email === "admin@renthub.com" && password === "admin123") {
-        // Redirect to admin dashboard
-        window.location.href = "/admin/dashboard"
-      } else {
-        alert("Invalid credentials. Use admin@renthub.com / admin123")
-      }
+    const normalizedEmail = email.trim().toLowerCase()
+    const normalizedPassword = password.trim()
+
+    if (normalizedEmail !== "admin@renthub.com" || normalizedPassword !== "admin123") {
+      setError("Invalid credentials. Use admin@renthub.com / admin123")
+      return
+    }
+
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("renthub-admin-auth", "true")
+    }
+
+    setIsLoading(true)
+    window.setTimeout(() => {
+      router.push("/admin/dashboard")
       setIsLoading(false)
-    }, 1000)
+    }, 300)
+  }
+
+  const handleDemoFill = () => {
+    setEmail("admin@renthub.com")
+    setPassword("admin123")
+    setError("")
   }
 
   return (
@@ -87,6 +102,8 @@ export default function AdminLogin() {
                 </div>
               </div>
 
+              {error ? <p className="text-sm text-red-600">{error}</p> : null}
+
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Signing in..." : "Sign In"}
               </Button>
@@ -100,6 +117,9 @@ export default function AdminLogin() {
                 <br />
                 Password: admin123
               </p>
+              <button type="button" onClick={handleDemoFill} className="mt-3 text-sm font-semibold text-blue-700 underline">
+                Fill demo credentials
+              </button>
             </div>
           </CardContent>
         </Card>
