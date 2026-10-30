@@ -90,7 +90,7 @@ export default function ClientPortalPage() {
       const lastNameMatches = tenantLastName === lastName
       const passwordMatches = tenantPassword === password
 
-      return (emailMatches && unitMatches && lastNameMatches && passwordMatches) || (emailMatches && unitMatches && passwordMatches) || (emailMatches && lastNameMatches && passwordMatches) || (unitMatches && lastNameMatches && passwordMatches)
+      return emailMatches && unitMatches && lastNameMatches && passwordMatches
     })
 
     if (!match) {

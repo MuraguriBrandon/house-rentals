@@ -1,0 +1,8 @@
+{
+  "agents": [
+    { "name": "manager",         "role": "Manager",         "status": "idle", "task": "-", "updated": "-" },
+    { "name": "developer",       "role": "Developer",       "status": "working", "task": "Publishing workspace changes to GitHub", "updated": "2026-10-30T22:37:18+03:00" },
+    { "name": "tester",          "role": "Tester",          "status": "blocked", "task": "Could not run HTTP/browser smoke tests: no runtime or request tool available", "updated": "2026-10-30T21:55:12+03:00" },
+    { "name": "listings-writer", "role": "Listings Writer", "status": "done", "task": "Reviewed homepage hero and featured rental copy; prepared fact-preserving alternatives", "updated": "2026-10-30T21:55:11+03:00" }
+  ]
+}
